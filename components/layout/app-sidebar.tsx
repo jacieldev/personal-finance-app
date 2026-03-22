@@ -2,20 +2,110 @@ import {
    Sidebar,
    SidebarContent,
    SidebarFooter,
+   SidebarGroup,
+   SidebarGroupContent,
+   SidebarGroupLabel,
    SidebarHeader,
+   SidebarMenu,
+   SidebarMenuButton,
+   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import {
+   LayoutDashboard,
+   Calendar,
+   ArrowLeftRight,
+   CreditCard,
+   Wallet,
+   Settings,
+   User,
+} from "lucide-react"
+import Link from "next/link"
+
+const menuItems = [
+   {
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: LayoutDashboard,
+   },
+   {
+      title: "Calendario",
+      url: "/calendario",
+      icon: Calendar,
+   },
+   {
+      title: "Movimientos",
+      url: "/movimientos",
+      icon: ArrowLeftRight,
+   },
+   {
+      title: "Obligaciones",
+      url: "/obligaciones",
+      icon: CreditCard,
+   },
+   {
+      title: "Cuentas",
+      url: "/cuentas",
+      icon: Wallet,
+   },
+]
 
 export function AppSidebar() {
    return (
       <Sidebar>
          <SidebarHeader>
-            <h2 className="text-lg font-bold">Mi Finanzas</h2>
+            <div className="flex items-center gap-2 px-4 py-2">
+               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                  <Wallet className="size-4" />
+               </div>
+               <div className="flex flex-col gap-0.5 leading-none">
+                  <span className="font-semibold">Mi Finanzas</span>
+                  <span className="text-xs text-muted-foreground">Personal</span>
+               </div>
+            </div>
          </SidebarHeader>
          <SidebarContent>
-            {/* Aquí puedes agregar tu contenido del sidebar */}
+            <SidebarGroup>
+               <SidebarGroupLabel>Principal</SidebarGroupLabel>
+               <SidebarGroupContent>
+                  <SidebarMenu>
+                     {menuItems.map((item) => (
+                        <SidebarMenuItem key={item.title}>
+                           <SidebarMenuButton>
+                              <Link href={item.url}>
+                                 <item.icon />
+                                 <span>{item.title}</span>
+                              </Link>
+                           </SidebarMenuButton>
+                        </SidebarMenuItem>
+                     ))}
+                  </SidebarMenu>
+               </SidebarGroupContent>
+            </SidebarGroup>
+            <SidebarGroup>
+               <SidebarGroupLabel>Configuración</SidebarGroupLabel>
+               <SidebarGroupContent>
+                  <SidebarMenu>
+                     <SidebarMenuItem>
+                        <SidebarMenuButton>
+                           <Link href="/ajustes">
+                              <Settings />
+                              <span>Ajustes</span>
+                           </Link>
+                        </SidebarMenuButton>
+                     </SidebarMenuItem>
+                  </SidebarMenu>
+               </SidebarGroupContent>
+            </SidebarGroup>
          </SidebarContent>
          <SidebarFooter>
-            {/* Footer opcional */}
+            <SidebarMenu>
+               <SidebarMenuItem>
+                  <SidebarMenuButton>
+                     <User />
+                     <span>Usuario</span>
+                  </SidebarMenuButton>
+               </SidebarMenuItem>
+            </SidebarMenu>
          </SidebarFooter>
       </Sidebar>
    )
