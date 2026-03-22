@@ -28,22 +28,22 @@ const menuItems = [
       icon: LayoutDashboard,
    },
    {
-      title: "Calendario",
+      title: "Calendar",
       url: "/calendario",
       icon: Calendar,
    },
    {
-      title: "Movimientos",
+      title: "Transactions",
       url: "/movimientos",
       icon: ArrowLeftRight,
    },
    {
-      title: "Obligaciones",
+      title: "Bills",
       url: "/obligaciones",
       icon: CreditCard,
    },
    {
-      title: "Cuentas",
+      title: "Accounts",
       url: "/cuentas",
       icon: Wallet,
    },
@@ -58,14 +58,14 @@ export function AppSidebar() {
                   <Wallet className="size-4" />
                </div>
                <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-semibold">Mi Finanzas</span>
+                  <span className="font-semibold">My Finance</span>
                   <span className="text-xs text-muted-foreground">Personal</span>
                </div>
             </div>
          </SidebarHeader>
          <SidebarContent>
             <SidebarGroup>
-               <SidebarGroupLabel>Principal</SidebarGroupLabel>
+               <SidebarGroupLabel>Main</SidebarGroupLabel>
                <SidebarGroupContent>
                   <SidebarMenu>
                      {menuItems.map((item) => (
@@ -82,14 +82,14 @@ export function AppSidebar() {
                </SidebarGroupContent>
             </SidebarGroup>
             <SidebarGroup>
-               <SidebarGroupLabel>Configuración</SidebarGroupLabel>
+               <SidebarGroupLabel>Settings</SidebarGroupLabel>
                <SidebarGroupContent>
                   <SidebarMenu>
                      <SidebarMenuItem>
                         <SidebarMenuButton>
                            <Link href="/ajustes">
                               <Settings />
-                              <span>Ajustes</span>
+                              <span>Settings</span>
                            </Link>
                         </SidebarMenuButton>
                      </SidebarMenuItem>
@@ -102,7 +102,7 @@ export function AppSidebar() {
                <SidebarMenuItem>
                   <SidebarMenuButton>
                      <User />
-                     <span>Usuario</span>
+                     <span>User</span>
                   </SidebarMenuButton>
                </SidebarMenuItem>
             </SidebarMenu>
