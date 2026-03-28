@@ -41,7 +41,7 @@ export default function LoginPage() {
    }
 
    return (
-      <div className="w-full max-w-sm rounded-2xl bg-white p-8 shadow-sm">
+      <div className="w-full max-w-sm rounded-2xl bg-card p-8 shadow-sm">
          {/* Ícono */}
          <div className="flex justify-center mb-6">
             <div className="flex size-14 items-center justify-center rounded-full bg-foreground text-background">
@@ -65,7 +65,7 @@ export default function LoginPage() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="tu@email.com"
                   autoComplete="email"
-                  className="rounded-xl bg-slate-100 border-0 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-foreground/20 transition-shadow"
+                  className="rounded-xl bg-muted border-0 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-foreground/20 transition-shadow"
                />
             </div>
 
@@ -78,7 +78,7 @@ export default function LoginPage() {
                      onChange={(e) => setPassword(e.target.value)}
                      placeholder="••••••"
                      autoComplete="current-password"
-                     className="w-full rounded-xl bg-slate-100 border-0 px-4 py-3 pr-11 text-sm outline-none focus:ring-2 focus:ring-foreground/20 transition-shadow"
+                     className="w-full rounded-xl bg-muted border-0 px-4 py-3 pr-11 text-sm outline-none focus:ring-2 focus:ring-foreground/20 transition-shadow"
                   />
                   <button
                      type="button"
