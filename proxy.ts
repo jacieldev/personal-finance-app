@@ -1,5 +1,5 @@
 import { auth } from "@/auth"
-export default auth
+export { auth as proxy }
 
 export const config = {
    matcher: [
