@@ -8,11 +8,11 @@ import { Wallet, Eye, EyeOff } from "lucide-react"
 
 export default function LoginPage() {
    const router = useRouter()
-   const [email, setEmail]       = useState("")
+   const [email, setEmail] = useState("")
    const [password, setPassword] = useState("")
    const [showPass, setShowPass] = useState(false)
-   const [error, setError]       = useState("")
-   const [loading, setLoading]   = useState(false)
+   const [error, setError] = useState("")
+   const [loading, setLoading] = useState(false)
 
    async function handleSubmit(e: React.FormEvent) {
       e.preventDefault()

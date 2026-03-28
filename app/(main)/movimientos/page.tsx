@@ -32,14 +32,14 @@ interface CuentaSimple {
 const CATEGORIAS = ["Alimentación", "Transporte", "Compras", "Servicios", "Entretenimiento", "Salud", "Ingreso", "Otro"]
 
 const catIcon: Record<string, React.ElementType> = {
-   Alimentación:   UtensilsCrossed,
-   Transporte:     Car,
-   Compras:        ShoppingBag,
-   Servicios:      Zap,
-   Entretenimiento:Gamepad2,
-   Salud:          HeartPulse,
-   Ingreso:        Banknote,
-   Otro:           MoreHorizontal,
+   Alimentación: UtensilsCrossed,
+   Transporte: Car,
+   Compras: ShoppingBag,
+   Servicios: Zap,
+   Entretenimiento: Gamepad2,
+   Salud: HeartPulse,
+   Ingreso: Banknote,
+   Otro: MoreHorizontal,
 }
 
 // ── Helpers ────────────────────────────────────────────────────────────────
@@ -226,16 +226,16 @@ function MovimientoSheet({
 // ── Página ─────────────────────────────────────────────────────────────────
 export default function MovimientosPage() {
    const [movimientos, setMovimientos] = useState<Movimiento[]>([])
-   const [cuentas, setCuentas]         = useState<CuentaSimple[]>([])
-   const [loading, setLoading]         = useState(true)
-   const [sheetOpen, setSheetOpen]     = useState(false)
-   const [editando, setEditando]       = useState<Movimiento | undefined>()
-   const [deletingId, setDeletingId]   = useState<number | null>(null)
+   const [cuentas, setCuentas] = useState<CuentaSimple[]>([])
+   const [loading, setLoading] = useState(true)
+   const [sheetOpen, setSheetOpen] = useState(false)
+   const [editando, setEditando] = useState<Movimiento | undefined>()
+   const [deletingId, setDeletingId] = useState<number | null>(null)
 
    // Filtros
-   const [busqueda, setBusqueda]               = useState("")
-   const [filtroTipo, setFiltroTipo]           = useState("")
-   const [filtroCuenta, setFiltroCuenta]       = useState("")
+   const [busqueda, setBusqueda] = useState("")
+   const [filtroTipo, setFiltroTipo] = useState("")
+   const [filtroCuenta, setFiltroCuenta] = useState("")
    const [filtroCategoria, setFiltroCategoria] = useState("")
 
    async function load() {
@@ -274,8 +274,8 @@ export default function MovimientosPage() {
    }).sort((a, b) => b.fecha.localeCompare(a.fecha))
 
    const ingresos = movimientos.filter((m) => m.tipo === "Ingreso").reduce((s, m) => s + m.monto, 0)
-   const gastos   = movimientos.filter((m) => m.tipo === "Gasto").reduce((s, m) => s + m.monto, 0)
-   const balance  = ingresos - gastos
+   const gastos = movimientos.filter((m) => m.tipo === "Gasto").reduce((s, m) => s + m.monto, 0)
+   const balance = ingresos - gastos
 
    async function handleSave(data: Omit<Movimiento, "id">) {
       const body = {

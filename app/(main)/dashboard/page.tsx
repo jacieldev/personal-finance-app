@@ -184,9 +184,9 @@ export default function DashboardPage() {
                            <td className="px-6 py-4">
                               <span className={cn(
                                  "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium",
-                                 v.estado === "Vencido"  ? "bg-red-500 text-white" :
-                                 v.estado === "Pagado"   ? "bg-green-100 text-green-700" :
-                                 "bg-muted text-muted-foreground"
+                                 v.estado === "Vencido" ? "bg-red-500 text-white" :
+                                    v.estado === "Pagado" ? "bg-green-100 text-green-700" :
+                                       "bg-muted text-muted-foreground"
                               )}>
                                  {v.estado}
                               </span>

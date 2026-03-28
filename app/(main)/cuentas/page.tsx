@@ -29,12 +29,12 @@ interface Movimiento {
 
 // ── Color map: CSS class ↔ hex ─────────────────────────────────────────────
 const COLOR_MAP: { label: string; css: string; hex: string }[] = [
-   { label: "Gris",    css: "bg-slate-100 text-slate-600",  hex: "#94a3b8" },
-   { label: "Azul",    css: "bg-blue-50 text-blue-600",     hex: "#2563eb" },
+   { label: "Gris", css: "bg-slate-100 text-slate-600", hex: "#94a3b8" },
+   { label: "Azul", css: "bg-blue-50 text-blue-600", hex: "#2563eb" },
    { label: "Naranja", css: "bg-orange-50 text-orange-600", hex: "#ea580c" },
-   { label: "Verde",   css: "bg-green-50 text-green-600",   hex: "#16a34a" },
-   { label: "Morado",  css: "bg-purple-50 text-purple-600", hex: "#9333ea" },
-   { label: "Rosa",    css: "bg-pink-50 text-pink-600",     hex: "#db2777" },
+   { label: "Verde", css: "bg-green-50 text-green-600", hex: "#16a34a" },
+   { label: "Morado", css: "bg-purple-50 text-purple-600", hex: "#9333ea" },
+   { label: "Rosa", css: "bg-pink-50 text-pink-600", hex: "#db2777" },
 ]
 
 function hexToCss(hex: string): string {
@@ -48,10 +48,10 @@ function cssToHex(css: string): string {
 const TIPOS: TipoCuenta[] = ["Efectivo", "Débito", "Crédito", "Ahorro", "Inversión"]
 
 const tipoIcon: Record<TipoCuenta, React.ElementType> = {
-   Efectivo:  Wallet,
-   Débito:    CreditCard,
-   Crédito:   CreditCard,
-   Ahorro:    PiggyBank,
+   Efectivo: Wallet,
+   Débito: CreditCard,
+   Crédito: CreditCard,
+   Ahorro: PiggyBank,
    Inversión: Landmark,
 }
 
@@ -93,10 +93,10 @@ function CuentaSheet({ open, onClose, onSave, editData }: {
    editData?: Cuenta
 }) {
    const [form, setForm] = useState({
-      nombre:          editData?.nombre ?? "",
-      tipo:            editData?.tipo ?? "" as TipoCuenta | "",
-      balanceInicial:  editData?.balanceInicial ?? 0,
-      color:           editData?.color ?? "bg-slate-100 text-slate-600",
+      nombre: editData?.nombre ?? "",
+      tipo: editData?.tipo ?? "" as TipoCuenta | "",
+      balanceInicial: editData?.balanceInicial ?? 0,
+      color: editData?.color ?? "bg-slate-100 text-slate-600",
    })
 
    function set<K extends keyof typeof form>(k: K, v: typeof form[K]) {
@@ -206,14 +206,14 @@ function CuentaCard({ cuenta, movimientos, onEdit, onDelete }: {
    const Icon = tipoIcon[cuenta.tipo]
 
    const variacion = movimientos.reduce((s, m) => s + m.monto, 0)
-   const balance   = cuenta.balanceInicial + variacion
+   const balance = cuenta.balanceInicial + variacion
 
    const recientes = [...movimientos]
       .sort((a, b) => b.fecha.localeCompare(a.fecha))
       .slice(0, 3)
 
    const ingresos = movimientos.filter((m) => m.monto > 0).reduce((s, m) => s + m.monto, 0)
-   const gastos   = movimientos.filter((m) => m.monto < 0).reduce((s, m) => s + Math.abs(m.monto), 0)
+   const gastos = movimientos.filter((m) => m.monto < 0).reduce((s, m) => s + Math.abs(m.monto), 0)
 
    return (
       <motion.div
@@ -254,8 +254,8 @@ function CuentaCard({ cuenta, movimientos, onEdit, onDelete }: {
 
          <div className="px-5 pb-4">
             {/* Saldo actual */}
-               <div className="mb-3">
-                  <p className="text-xs text-muted-foreground mb-0.5">Saldo actual</p>
+            <div className="mb-3">
+               <p className="text-xs text-muted-foreground mb-0.5">Saldo actual</p>
                <p className={cn("text-2xl font-bold", balance < 0 ? "text-red-500" : "")}>
                   {balance < 0 ? "-" : ""}${Math.abs(balance).toLocaleString("es-MX", { minimumFractionDigits: 2 })}
                </p>
@@ -337,11 +337,11 @@ function CuentaCard({ cuenta, movimientos, onEdit, onDelete }: {
 
 // ── Página ─────────────────────────────────────────────────────────────────
 export default function CuentasPage() {
-   const [cuentas, setCuentas]     = useState<Cuenta[]>([])
+   const [cuentas, setCuentas] = useState<Cuenta[]>([])
    const [movimientos, setMovimientos] = useState<Movimiento[]>([])
-   const [loading, setLoading]     = useState(true)
+   const [loading, setLoading] = useState(true)
    const [sheetOpen, setSheetOpen] = useState(false)
-   const [editando, setEditando]   = useState<Cuenta | undefined>()
+   const [editando, setEditando] = useState<Cuenta | undefined>()
 
    async function load() {
       const [cRes, mRes] = await Promise.all([

@@ -33,20 +33,20 @@ const FRECUENCIAS: Frecuencia[] = ["Semanal", "Quincenal", "Mensual", "Anual"]
 
 const catIcon: Record<Categoria, React.ElementType> = {
    Suscripcion: Tv,
-   Credito:     CreditCard,
-   Prestamo:    Landmark,
-   Servicio:    Wifi,
-   Renta:       Home,
-   Otro:        MoreHorizontal,
+   Credito: CreditCard,
+   Prestamo: Landmark,
+   Servicio: Wifi,
+   Renta: Home,
+   Otro: MoreHorizontal,
 }
 
 const catColor: Record<Categoria, string> = {
    Suscripcion: "bg-purple-50 text-purple-600",
-   Credito:     "bg-orange-50 text-orange-600",
-   Prestamo:    "bg-blue-50 text-blue-600",
-   Servicio:    "bg-cyan-50 text-cyan-600",
-   Renta:       "bg-yellow-50 text-yellow-700",
-   Otro:        "bg-muted text-muted-foreground",
+   Credito: "bg-orange-50 text-orange-600",
+   Prestamo: "bg-blue-50 text-blue-600",
+   Servicio: "bg-cyan-50 text-cyan-600",
+   Renta: "bg-yellow-50 text-yellow-700",
+   Otro: "bg-muted text-muted-foreground",
 }
 
 const nombreIcon: Record<string, React.ElementType> = {
@@ -116,13 +116,13 @@ function ObligacionSheet({ open, onClose, onSave, editData }: {
 }) {
    const hoy = new Date()
    const [form, setForm] = useState({
-      nombre:              editData?.nombre ?? "",
-      categoria:           editData?.categoria ?? "" as Categoria | "",
-      frecuencia:          editData?.frecuencia ?? "Mensual" as Frecuencia,
-      diaPago:             editData?.diaPago ?? 1,
-      monto:               editData?.monto ?? 0,
-      estado:              editData?.estado ?? "Activo" as Estado,
-      proximoVencimiento:  editData?.proximoVencimiento ?? "",
+      nombre: editData?.nombre ?? "",
+      categoria: editData?.categoria ?? "" as Categoria | "",
+      frecuencia: editData?.frecuencia ?? "Mensual" as Frecuencia,
+      diaPago: editData?.diaPago ?? 1,
+      monto: editData?.monto ?? 0,
+      estado: editData?.estado ?? "Activo" as Estado,
+      proximoVencimiento: editData?.proximoVencimiento ?? "",
    })
 
    function set<K extends keyof typeof form>(k: K, v: typeof form[K]) {
@@ -132,7 +132,7 @@ function ObligacionSheet({ open, onClose, onSave, editData }: {
    function handleSave() {
       if (!form.nombre || !form.categoria || form.monto <= 0) return
       const prox = form.proximoVencimiento ||
-         `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2,"0")}-${String(form.diaPago).padStart(2,"0")}`
+         `${hoy.getFullYear()}-${String(hoy.getMonth() + 1).padStart(2, "0")}-${String(form.diaPago).padStart(2, "0")}`
       onSave({ ...form, categoria: form.categoria as Categoria, proximoVencimiento: prox })
       onClose()
    }
@@ -294,18 +294,18 @@ function ObligacionCard({ o, onToggleEstado, onEdit, onDelete, onMarcarPagada }:
                {/* Badge urgencia */}
                <span className={cn("mt-0.5 inline-flex w-fit items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium",
                   urgencia === "vencida" ? "bg-red-100 text-red-600" :
-                  urgencia === "urgente" ? "bg-orange-100 text-orange-600" :
-                  urgencia === "pronto"  ? "bg-yellow-100 text-yellow-700" :
-                  "bg-muted text-muted-foreground"
+                     urgencia === "urgente" ? "bg-orange-100 text-orange-600" :
+                        urgencia === "pronto" ? "bg-yellow-100 text-yellow-700" :
+                           "bg-muted text-muted-foreground"
                )}>
-                  {urgencia === "vencida"  && <AlertCircle className="size-3" />}
-                  {urgencia === "urgente"  && <AlertCircle className="size-3" />}
-                  {urgencia === "pronto"   && <Clock className="size-3" />}
-                  {urgencia === "ok"       && <RefreshCw className="size-3" />}
-                  {urgencia === "vencida"  ? "Vencida" :
-                   urgencia === "urgente"  ? `Vence en ${dias} día${dias === 1 ? "" : "s"}` :
-                   urgencia === "pronto"   ? `En ${dias} días` :
-                   `En ${dias} días`}
+                  {urgencia === "vencida" && <AlertCircle className="size-3" />}
+                  {urgencia === "urgente" && <AlertCircle className="size-3" />}
+                  {urgencia === "pronto" && <Clock className="size-3" />}
+                  {urgencia === "ok" && <RefreshCw className="size-3" />}
+                  {urgencia === "vencida" ? "Vencida" :
+                     urgencia === "urgente" ? `Vence en ${dias} día${dias === 1 ? "" : "s"}` :
+                        urgencia === "pronto" ? `En ${dias} días` :
+                           `En ${dias} días`}
                </span>
             </div>
 
@@ -343,12 +343,12 @@ const TABS = ["Todas", "Suscripcion", "Credito", "Prestamo", "Servicio", "Renta"
 type Tab = typeof TABS[number]
 
 export default function ObligacionesPage() {
-   const [items, setItems]       = useState<Obligacion[]>([])
-   const [tab, setTab]           = useState<Tab>("Todas")
+   const [items, setItems] = useState<Obligacion[]>([])
+   const [tab, setTab] = useState<Tab>("Todas")
    const [sheetOpen, setSheetOpen] = useState(false)
-   const [editando, setEditando]   = useState<Obligacion | undefined>()
+   const [editando, setEditando] = useState<Obligacion | undefined>()
    const [eliminarId, setEliminarId] = useState<number | null>(null)
-   const [loading, setLoading]     = useState(true)
+   const [loading, setLoading] = useState(true)
    const itemAEliminar = items.find((o) => o.id === eliminarId)
 
    async function load() {
@@ -380,8 +380,8 @@ export default function ObligacionesPage() {
       .sort((a, b) => a.proximoVencimiento.localeCompare(b.proximoVencimiento))
 
    const totalActivo = items.filter((o) => o.estado === "Activo").reduce((s, o) => s + o.monto, 0)
-   const pendientes  = items.filter((o) => o.estado === "Activo" && !o.pagada).length
-   const vencidas    = items.filter((o) => diasRestantes(o.proximoVencimiento) < 0 && !o.pagada).length
+   const pendientes = items.filter((o) => o.estado === "Activo" && !o.pagada).length
+   const vencidas = items.filter((o) => diasRestantes(o.proximoVencimiento) < 0 && !o.pagada).length
 
    async function handleSave(data: Omit<Obligacion, "id" | "pagada">) {
       const body = {

@@ -99,59 +99,59 @@ export function AppSidebar() {
             <div ref={footerRef}>
                <SidebarSeparator />
 
-            {/* Menú desplegable hacia arriba */}
-            <AnimatePresence>
-               {ajustesOpen && (
-                  <motion.div
-                     initial={{ opacity: 0, y: 6, scale: 0.97 }}
-                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                     exit={{ opacity: 0, y: 6, scale: 0.97 }}
-                     transition={{ duration: 0.18, ease: "easeOut" }}
-                     className="mx-2 mb-1 overflow-hidden rounded-lg border bg-background shadow-md"
-                  >
-                     <button
-                        onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-                        className="flex w-full items-center gap-2 px-3 py-2.5 text-sm text-foreground hover:bg-muted/60 transition-colors"
+               {/* Menú desplegable hacia arriba */}
+               <AnimatePresence>
+                  {ajustesOpen && (
+                     <motion.div
+                        initial={{ opacity: 0, y: 6, scale: 0.97 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                        transition={{ duration: 0.18, ease: "easeOut" }}
+                        className="mx-2 mb-1 overflow-hidden rounded-lg border bg-background shadow-md"
                      >
-                        <Moon className="size-4 shrink-0" />
-                        <span>{resolvedTheme === "dark" ? "Modo claro" : "Modo oscuro"}</span>
-                     </button>
-                     <div className="mx-3 h-px bg-border" />
-                     <button onClick={handleLogout} className="flex w-full items-center gap-2 px-3 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors">
-                        <LogOut className="size-4 shrink-0" />
-                        <span>Cerrar sesión</span>
-                     </button>
-                  </motion.div>
-               )}
-            </AnimatePresence>
+                        <button
+                           onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                           className="flex w-full items-center gap-2 px-3 py-2.5 text-sm text-foreground hover:bg-muted/60 transition-colors"
+                        >
+                           <Moon className="size-4 shrink-0" />
+                           <span>{resolvedTheme === "dark" ? "Modo claro" : "Modo oscuro"}</span>
+                        </button>
+                        <div className="mx-3 h-px bg-border" />
+                        <button onClick={handleLogout} className="flex w-full items-center gap-2 px-3 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors">
+                           <LogOut className="size-4 shrink-0" />
+                           <span>Cerrar sesión</span>
+                        </button>
+                     </motion.div>
+                  )}
+               </AnimatePresence>
 
-            {/* Ajustes + trigger de opciones */}
-            <SidebarMenu>
-               <SidebarMenuItem>
-                  <div className="flex items-center gap-1">
-                     <SidebarMenuButton
-                        render={<Link href="/ajustes" />}
-                        isActive={pathname === "/ajustes"}
-                        className="flex-1"
-                     >
-                        <Settings className="size-4 shrink-0" />
-                        <span>Ajustes</span>
-                     </SidebarMenuButton>
-                     <button
-                        onClick={() => setAjustesOpen((v) => !v)}
-                        className={cn(
-                           "flex size-8 shrink-0 items-center justify-center rounded-lg transition-colors",
-                           ajustesOpen ? "bg-muted" : "hover:bg-muted"
-                        )}
-                     >
-                        <ChevronUp className={cn(
-                           "size-3.5 text-muted-foreground transition-transform duration-200",
-                           ajustesOpen ? "rotate-180" : "rotate-0"
-                        )} />
-                     </button>
-                  </div>
-               </SidebarMenuItem>
-            </SidebarMenu>
+               {/* Ajustes + trigger de opciones */}
+               <SidebarMenu>
+                  <SidebarMenuItem>
+                     <div className="flex items-center gap-1">
+                        <SidebarMenuButton
+                           render={<Link href="/ajustes" />}
+                           isActive={pathname === "/ajustes"}
+                           className="flex-1"
+                        >
+                           <Settings className="size-4 shrink-0" />
+                           <span>Ajustes</span>
+                        </SidebarMenuButton>
+                        <button
+                           onClick={() => setAjustesOpen((v) => !v)}
+                           className={cn(
+                              "flex size-8 shrink-0 items-center justify-center rounded-lg transition-colors",
+                              ajustesOpen ? "bg-muted" : "hover:bg-muted"
+                           )}
+                        >
+                           <ChevronUp className={cn(
+                              "size-3.5 text-muted-foreground transition-transform duration-200",
+                              ajustesOpen ? "rotate-180" : "rotate-0"
+                           )} />
+                        </button>
+                     </div>
+                  </SidebarMenuItem>
+               </SidebarMenu>
             </div>
          </SidebarFooter>
       </Sidebar>

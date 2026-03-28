@@ -20,7 +20,7 @@ interface ObligacionCal {
 const DIAS_QUINCENA = [15, 28]
 
 const DIAS_SEMANA = ["Lu", "Ma", "Mi", "Ju", "Vi", "Sá", "Do"]
-const MESES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+const MESES = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 function getDiasEnMes(year: number, month: number) {
@@ -110,8 +110,8 @@ export default function CalendarioPage() {
       movido: diaPagoEfectivo(año, mes, d) !== Math.min(d, diasEnMes),
    }))
 
-   const diasConObl  = new Set(oblMes.map((o) => o.dia))
-   const diasDePago  = new Set(pagos.map((p) => p.diaEfectivo))
+   const diasConObl = new Set(oblMes.map((o) => o.dia))
+   const diasDePago = new Set(pagos.map((p) => p.diaEfectivo))
 
    const oblDiaSeleccionado = diaSeleccionado
       ? oblMes.filter((o) => o.dia === diaSeleccionado)
@@ -124,7 +124,7 @@ export default function CalendarioPage() {
 
    const totalPeriodo1 = oblMes.filter((o) => getPeriodo(o.dia, año, mes) === 1).reduce((s, o) => s + o.monto, 0)
    const totalPeriodo2 = oblMes.filter((o) => getPeriodo(o.dia, año, mes) === 2).reduce((s, o) => s + o.monto, 0)
-   const vencidas  = oblMes.filter((o) => o.estado === "Vencido").length
+   const vencidas = oblMes.filter((o) => o.estado === "Vencido").length
    const pendientes = oblMes.filter((o) => o.estado === "Pendiente").length
 
    function navMes(dir: number) {
@@ -250,14 +250,14 @@ export default function CalendarioPage() {
 
                      {Array.from({ length: diasEnMes }).map((_, i) => {
                         const dia = i + 1
-                        const tieneObl  = diasConObl.has(dia)
-                        const esPago    = diasDePago.has(dia)
-                        const esHoy     = dia === HOY.dia && mes === HOY.mes && año === HOY.año
+                        const tieneObl = diasConObl.has(dia)
+                        const esPago = diasDePago.has(dia)
+                        const esHoy = dia === HOY.dia && mes === HOY.mes && año === HOY.año
                         const seleccionado = diaSeleccionado === dia
-                        const oblsDia   = oblMes.filter((o) => o.dia === dia)
+                        const oblsDia = oblMes.filter((o) => o.dia === dia)
                         const tieneVencida = oblsDia.some((o) => o.estado === "Vencido")
-                        const periodo   = getPeriodo(dia, año, mes)
-                        const enFiltro  = verPeriodo === "todos" || periodo === verPeriodo
+                        const periodo = getPeriodo(dia, año, mes)
+                        const enFiltro = verPeriodo === "todos" || periodo === verPeriodo
 
                         return (
                            <button
@@ -270,10 +270,10 @@ export default function CalendarioPage() {
                                  seleccionado
                                     ? "bg-foreground text-background"
                                     : esPago
-                                    ? "ring-2 ring-blue-400 ring-offset-1 font-semibold"
-                                    : esHoy
-                                    ? "bg-muted font-semibold"
-                                    : "hover:bg-muted/60",
+                                       ? "ring-2 ring-blue-400 ring-offset-1 font-semibold"
+                                       : esHoy
+                                          ? "bg-muted font-semibold"
+                                          : "hover:bg-muted/60",
                                  !enFiltro && "opacity-25",
                                  !tieneObl && !esPago && "cursor-default"
                               )}
@@ -292,7 +292,7 @@ export default function CalendarioPage() {
                                           "size-1.5 rounded-full",
                                           seleccionado ? "bg-background"
                                              : tieneVencida ? "bg-red-500"
-                                             : "bg-orange-400"
+                                                : "bg-orange-400"
                                        )} />
                                     )}
                                  </span>
@@ -313,91 +313,91 @@ export default function CalendarioPage() {
 
             {/* Panel detalle */}
             <AnimatePresence initial={false}>
-            {panelAbierto && (
-            <motion.div
-               key="panel"
-               initial={{ opacity: 0, width: 0 }}
-               animate={{ opacity: 1, width: 320 }}
-               exit={{ opacity: 0, width: 0 }}
-               transition={{ duration: 0.25, ease: "easeInOut" }}
-               className="overflow-hidden shrink-0"
-            >
-            <div className="rounded-xl border bg-card shadow-sm flex flex-col h-full">
-               <div className="px-5 py-4 border-b">
-                  <h2 className="font-semibold text-sm">
-                     {diaSeleccionado ? `${diaSeleccionado} de ${MESES[mes]}` : "Selecciona un día"}
-                  </h2>
-                  <p className="text-xs text-muted-foreground mt-0.5">
-                     {diaSeleccionado
-                        ? [
-                            diasDePago.has(diaSeleccionado) && "📅 Día de quincena",
-                            oblDiaSeleccionado.length > 0 && `${oblDiaSeleccionado.length} obligación(es) · ${getPeriodo(diaSeleccionado, año, mes) === 1 ? "1ª" : "2ª"} quincena`,
-                          ].filter(Boolean).join(" · ") || "Sin obligaciones"
-                        : "Toca un día del calendario"}
-                  </p>
-               </div>
-
-               <div className="flex flex-col gap-2 p-4 flex-1">
-                  {/* Día de pago */}
-                  {diaSeleccionado && diasDePago.has(diaSeleccionado) && (
-                     <div className="rounded-lg bg-blue-50 border border-blue-100 p-3 mb-1">
-                        <p className="text-xs font-medium text-blue-700 flex items-center gap-1.5">
-                           <Banknote className="size-3.5" /> Día de cobro de quincena
-                        </p>
-                        {pagos.find((p) => p.diaEfectivo === diaSeleccionado)?.movido && (
-                           <p className="text-xs text-blue-600 mt-0.5 opacity-80">
-                              Movido de fin de semana al viernes
+               {panelAbierto && (
+                  <motion.div
+                     key="panel"
+                     initial={{ opacity: 0, width: 0 }}
+                     animate={{ opacity: 1, width: 320 }}
+                     exit={{ opacity: 0, width: 0 }}
+                     transition={{ duration: 0.25, ease: "easeInOut" }}
+                     className="overflow-hidden shrink-0"
+                  >
+                     <div className="rounded-xl border bg-card shadow-sm flex flex-col h-full">
+                        <div className="px-5 py-4 border-b">
+                           <h2 className="font-semibold text-sm">
+                              {diaSeleccionado ? `${diaSeleccionado} de ${MESES[mes]}` : "Selecciona un día"}
+                           </h2>
+                           <p className="text-xs text-muted-foreground mt-0.5">
+                              {diaSeleccionado
+                                 ? [
+                                    diasDePago.has(diaSeleccionado) && "📅 Día de quincena",
+                                    oblDiaSeleccionado.length > 0 && `${oblDiaSeleccionado.length} obligación(es) · ${getPeriodo(diaSeleccionado, año, mes) === 1 ? "1ª" : "2ª"} quincena`,
+                                 ].filter(Boolean).join(" · ") || "Sin obligaciones"
+                                 : "Toca un día del calendario"}
                            </p>
-                        )}
-                     </div>
-                  )}
+                        </div>
 
-                  {!diaSeleccionado && (
-                     <div className="flex flex-1 items-center justify-center py-12">
-                        <div className="text-center text-muted-foreground">
-                           <Calendar className="size-8 mx-auto mb-2 opacity-30" />
-                           <p className="text-sm">Ningún día seleccionado</p>
-                        </div>
-                     </div>
-                  )}
+                        <div className="flex flex-col gap-2 p-4 flex-1">
+                           {/* Día de pago */}
+                           {diaSeleccionado && diasDePago.has(diaSeleccionado) && (
+                              <div className="rounded-lg bg-blue-50 border border-blue-100 p-3 mb-1">
+                                 <p className="text-xs font-medium text-blue-700 flex items-center gap-1.5">
+                                    <Banknote className="size-3.5" /> Día de cobro de quincena
+                                 </p>
+                                 {pagos.find((p) => p.diaEfectivo === diaSeleccionado)?.movido && (
+                                    <p className="text-xs text-blue-600 mt-0.5 opacity-80">
+                                       Movido de fin de semana al viernes
+                                    </p>
+                                 )}
+                              </div>
+                           )}
 
-                  {diaSeleccionado && oblDiaSeleccionado.length === 0 && !diasDePago.has(diaSeleccionado) && (
-                     <div className="flex flex-1 items-center justify-center py-12">
-                        <div className="text-center text-muted-foreground">
-                           <CheckCircle2 className="size-8 mx-auto mb-2 opacity-30" />
-                           <p className="text-sm">Sin obligaciones este día</p>
-                        </div>
-                     </div>
-                  )}
+                           {!diaSeleccionado && (
+                              <div className="flex flex-1 items-center justify-center py-12">
+                                 <div className="text-center text-muted-foreground">
+                                    <Calendar className="size-8 mx-auto mb-2 opacity-30" />
+                                    <p className="text-sm">Ningún día seleccionado</p>
+                                 </div>
+                              </div>
+                           )}
 
-                  {oblDiaSeleccionado.map((o) => (
-                     <div key={o.id} className="rounded-lg border p-3 flex flex-col gap-1.5">
-                        <div className="flex items-start justify-between gap-2">
-                           <span className="font-medium text-sm">{o.nombre}</span>
-                           <span className="font-bold text-sm shrink-0">
-                              ${o.monto.toLocaleString("es-MX", { minimumFractionDigits: 2 })}
-                           </span>
+                           {diaSeleccionado && oblDiaSeleccionado.length === 0 && !diasDePago.has(diaSeleccionado) && (
+                              <div className="flex flex-1 items-center justify-center py-12">
+                                 <div className="text-center text-muted-foreground">
+                                    <CheckCircle2 className="size-8 mx-auto mb-2 opacity-30" />
+                                    <p className="text-sm">Sin obligaciones este día</p>
+                                 </div>
+                              </div>
+                           )}
+
+                           {oblDiaSeleccionado.map((o) => (
+                              <div key={o.id} className="rounded-lg border p-3 flex flex-col gap-1.5">
+                                 <div className="flex items-start justify-between gap-2">
+                                    <span className="font-medium text-sm">{o.nombre}</span>
+                                    <span className="font-bold text-sm shrink-0">
+                                       ${o.monto.toLocaleString("es-MX", { minimumFractionDigits: 2 })}
+                                    </span>
+                                 </div>
+                                 <div className="flex items-center gap-1.5 flex-wrap">
+                                    <span className="text-xs rounded-full border px-2 py-0.5 text-muted-foreground">{o.tipo}</span>
+                                    <span className={cn(
+                                       "text-xs rounded-full px-2 py-0.5 font-medium",
+                                       o.estado === "Vencido" ? "bg-red-100 text-red-600"
+                                          : o.estado === "Pagado" ? "bg-green-100 text-green-600"
+                                             : "bg-orange-50 text-orange-600"
+                                    )}>{o.estado}</span>
+                                 </div>
+                                 <button
+                                    onClick={() => marcarPagado(o.id)}
+                                    className="mt-1 text-xs text-muted-foreground hover:text-foreground transition-colors text-left flex items-center gap-1">
+                                    <CheckCircle2 className="size-3.5" /> Marcar como pagado
+                                 </button>
+                              </div>
+                           ))}
                         </div>
-                        <div className="flex items-center gap-1.5 flex-wrap">
-                           <span className="text-xs rounded-full border px-2 py-0.5 text-muted-foreground">{o.tipo}</span>
-                           <span className={cn(
-                              "text-xs rounded-full px-2 py-0.5 font-medium",
-                              o.estado === "Vencido" ? "bg-red-100 text-red-600"
-                                 : o.estado === "Pagado" ? "bg-green-100 text-green-600"
-                                 : "bg-orange-50 text-orange-600"
-                           )}>{o.estado}</span>
-                        </div>
-                        <button
-                           onClick={() => marcarPagado(o.id)}
-                           className="mt-1 text-xs text-muted-foreground hover:text-foreground transition-colors text-left flex items-center gap-1">
-                           <CheckCircle2 className="size-3.5" /> Marcar como pagado
-                        </button>
                      </div>
-                  ))}
-               </div>
-            </div>
-            </motion.div>
-            )}
+                  </motion.div>
+               )}
             </AnimatePresence>
          </div>
       </div>
