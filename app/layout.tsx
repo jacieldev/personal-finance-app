@@ -1,8 +1,8 @@
-
 import { Inter } from "next/font/google"
-import { SidebarProvider } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/layout/app-sidebar"
+import { Analytics } from "@vercel/analytics/next"
 import { TooltipProvider } from "@/components/ui/tooltip"
+import { ThemeProvider } from "@/components/theme-provider"
+import { Providers } from "@/components/providers"
 import "./globals.css"
 
 const inter = Inter({
@@ -16,16 +16,16 @@ export default function RootLayout({
    children: React.ReactNode
 }) {
    return (
-      <html lang="es" className={inter.variable}>
+      <html lang="es" className={inter.variable} suppressHydrationWarning>
          <body className="font-sans antialiased">
-            <TooltipProvider>
-               <SidebarProvider>
-                  <AppSidebar />
-                  <main className="flex-1">
+            <ThemeProvider>
+               <Providers>
+                  <TooltipProvider>
                      {children}
-                  </main>
-               </SidebarProvider>
-            </TooltipProvider>
+                  </TooltipProvider>
+               </Providers>
+            </ThemeProvider>
+            <Analytics />
          </body>
       </html>
    )
